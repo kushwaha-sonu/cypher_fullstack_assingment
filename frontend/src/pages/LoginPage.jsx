@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
-import { API_URL } from "../constants/index.js";
+import axios from 'axios';
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -41,17 +41,15 @@ const SignIn = () => {
     dispatch(loginStart());
 
     try {
-      const response = await fetch(`/api/auth/login`, {
-        method: "POST",
+      const response = await axios.post(`api/auth/login`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include",
-        body: JSON.stringify(formData),
+        withCredentials: true,
       });
 
-      const data = await response.json();
-      if (response.ok && data.success) {
+      const data = response.data;
+      if (response.status === 200 && data.success) {
         toast.success(data.message);
         dispatch(loginSuccess(data.user));
         setFormData({ email: "", password: "" });

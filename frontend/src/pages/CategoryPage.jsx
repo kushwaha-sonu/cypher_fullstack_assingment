@@ -1,7 +1,7 @@
-// frontend/src/pages/CategoryPage.jsx
+
 import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {API_URL} from "../constants/index.js";
+import axios from "axios";
 
 const CategoryPage = () => {
     const [categories, setCategories] = useState([]);
@@ -10,16 +10,13 @@ const CategoryPage = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await fetch(`/api/question/all-categories`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        credentials: "include",
-                    }
-                );
-                const data = await response.json();
-                setCategories(data.categories);
+                const response = await axios.get(`api/question/all-categories`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    withCredentials: true,
+                });
+                setCategories(response.data.categories);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }

@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
-import Timer from "./Timer.jsx";
 import { useNavigate } from "react-router-dom";
-import { API_URL } from "../constants/index.js";
 import { answerStart, answerSuccess, scoreFailure, scoreSuccess } from "../store/slices/answerSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
 const Question = ({ questions, cameraAllowed }) => {
     const { email,_id } = useSelector((state) => state.user.user);
@@ -25,21 +24,19 @@ const Question = ({ questions, cameraAllowed }) => {
 
     const onSubmit = useCallback(async () => {
         try {
-            const response = await fetch(`/api/user_answer/answer`, {
-                method: 'POST',
+            const response = await axios.post(`api/user_answer/answer`, {
+                userAnswers,
+                category,
+                email,
+                _id
+            }, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: "include",
-                body: JSON.stringify({
-                    userAnswers,
-                    category,
-                    email,
-                    _id
-                }),
+                withCredentials: true,
             });
 
-            const data = await response.json();
+            const data = response.data;
             dispatch(scoreSuccess(data));
             console.log(data.score);
 
@@ -49,7 +46,7 @@ const Question = ({ questions, cameraAllowed }) => {
             dispatch(scoreFailure(e.message));
         }
     }, [userAnswers]);
-    console.log(userAnswers)
+    // console.log(userAnswers)
 
     return (
         <>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { API_URL } from "../constants";
+
 import { useLocation } from "react-router-dom";
+import axios from 'axios';
 
 const useAllQuestions = () => {
   const [questions, setQuestions] = useState([]);
@@ -13,16 +14,14 @@ const useAllQuestions = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/question/all-questions?category=${category}`, {
-          method: 'GET',
+        const response = await axios.get(`api/question/all-questions`, {
+          params: { category },
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: "include",
+          withCredentials: true,
         });
-        const { questions } = await response.json();
-
-        setQuestions(questions);
+        setQuestions(response.data.questions);
         setLoading(false);
       } catch (error) {
         setError(error);

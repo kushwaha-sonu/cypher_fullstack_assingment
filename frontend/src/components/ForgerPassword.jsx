@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
-import { API_URL } from "../constants/index.js";
+
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,10 +10,10 @@ import {
     updateStart,
     updateSuccess,
 } from "../store/slices/userSlice";
+import axios from 'axios';
 
 const ForgotPassword = () => {
     const [eyeClick, setEyeClick] = useState(false);
-    // eslint-disable-next-line no-unused-vars
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isLoggingIn = useSelector((state) => state.user.loggingIn);
@@ -29,7 +29,7 @@ const ForgotPassword = () => {
             ...formData,
             [e.target.name]: e.target.value,
         });
-        
+
     };
 
     const handleEyeClick = (e) => {
@@ -42,17 +42,15 @@ const ForgotPassword = () => {
 
         try {
             dispatch(updateStart());
-            const response = await fetch(`/api/auth/update-password`, {
-                method: "PUT",
+            const response = await axios.put(`api/auth/update-password`, formData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                credentials: "include",
-                body: JSON.stringify(formData),
+                withCredentials: true,
             });
-            const data = await response.json();
+            const data = response.data;
             // console.log(data);
-            if (response.ok && data.success) {
+            if (response.status === 200 && data.success) {
                 dispatch(updateSuccess(data.user));
                 toast.success(data.message);
                 navigate("/sign-in");
@@ -131,7 +129,7 @@ const ForgotPassword = () => {
                                 )}
                             </button>
                         </div>
-                     
+
                     </div>
                     <div className="mt-10">
                         <button

@@ -4,8 +4,9 @@ import { CiLogout } from "react-icons/ci";
 import Logo from '../assets/logo.jpeg';
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/slices/userSlice";
-import { API_URL } from "../constants/index.js";
+
 import { toast } from "react-toastify";
+import axios from 'axios';
 
 const Navbar = () => {
     const user = useSelector((state) => state.user.user);
@@ -22,15 +23,14 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch(`/api/auth/logout`, {
-                method: "POST",
+            const response = await axios.post(`api/auth/logout`, {}, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                credentials: "include",
+                withCredentials: true,
             });
 
-            const data = await response.json();
+            const data = response.data;
             console.log(response);
             if (data.success === true) {
                 dispatch(logout());
@@ -43,6 +43,7 @@ const Navbar = () => {
             toast.error("Error Logging Out");
         }
     };
+
     return (
         <header className="w-full sticky top-0 h-20 shadow-md bg-slate-100 shadow-slate-200">
             <div className="container mx-auto p-2 flex items-center justify-between">

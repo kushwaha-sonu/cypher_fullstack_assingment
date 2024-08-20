@@ -3,8 +3,9 @@ import { IoEyeOff } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { useState } from "react";
 import Layout from "../components/Layout";
-import { API_URL } from "../constants/index.js";
+
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -33,15 +34,13 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`/api/auth/register`, {
-        method: "POST",
+      const response = await axios.post(`api/auth/register`, formData, {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+      const data = response.data;
       if (data.success === true) {
         toast.success(data.message);
 

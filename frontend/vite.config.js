@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://cypher-assingment.vercel.app',
+        target: 'https://cypher-fullstack-assingment.onrender.com',
         secure: false,
       },
     },

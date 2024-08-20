@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://cypher-assingment-ty84-20yz1utns-sonu-kumars-projects-beca3941.vercel.app",
     credentials: true,
   })
 );

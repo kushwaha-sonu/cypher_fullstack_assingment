@@ -11,6 +11,10 @@ import ResultPage from "./pages/ResultPage.jsx";
 import CategoryPage from "./pages/CategoryPage.jsx";
 import PrivateRoute from "./pages/PrivateRoute.jsx";
 import {useSelector} from "react-redux";
+import axios from "axios";
+
+axios.defaults.baseURL = "https://cypher-fullstack-assingment.vercel.app";
+axios.defaults.withCredentials = true;
 
 function App() {
   const user = useSelector((state) => state.user.user);

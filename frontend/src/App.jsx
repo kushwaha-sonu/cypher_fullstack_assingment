@@ -13,7 +13,7 @@ import PrivateRoute from "./pages/PrivateRoute.jsx";
 import {useSelector} from "react-redux";
 import axios from "axios";
 
-axios.defaults.baseURL = "https://cypher-fullstack-assingment.vercel.app";
+axios.defaults.baseURL = "https://cypher-fullstack-assingment.onrender.com";
 axios.defaults.withCredentials = true;
 
 function App() {

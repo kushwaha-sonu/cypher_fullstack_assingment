@@ -14,7 +14,7 @@ import {useSelector} from "react-redux";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://cypher-fullstack-assingment.onrender.com";
-axios.defaults.withCredentials = true;
+
 
 function App() {
   const user = useSelector((state) => state.user.user);

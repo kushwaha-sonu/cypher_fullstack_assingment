@@ -22,7 +22,7 @@ const Navbar = () => {
 
     const handleLogout = async () => {
         try {
-            const response = await fetch(`${API_URL}/api/auth/logout`, {
+            const response = await fetch(`/api/auth/logout`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const Navbar = () => {
                                                 alt="user"
                                             />
                                         </div>
-                                        <div>
+                                        <div className='hidden md:block'>
                                             <p>{user.display_name}</p>
                                         </div>
                                     </div>

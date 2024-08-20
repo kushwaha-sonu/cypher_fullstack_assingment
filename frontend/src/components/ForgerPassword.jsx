@@ -42,7 +42,7 @@ const ForgotPassword = () => {
 
         try {
             dispatch(updateStart());
-            const response = await fetch(`${API_URL}/api/auth/update-password`, {
+            const response = await fetch(`/api/auth/update-password`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

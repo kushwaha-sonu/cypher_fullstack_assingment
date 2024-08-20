@@ -8,6 +8,8 @@ const app = express();
 
 import authRoutes from "./routes/auth.route.js"
 import questionRoutes from "./routes/question.route.js"
+import answerRoutes from "./routes/answer.route.js"
+import {evaluateAnswersController} from "./controller/evaluateAnswers.controller.js";
 
 
 dotenv.config();
@@ -28,6 +30,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/question",questionRoutes);
+app.use('/api/user_answer',answerRoutes);
 
 
 app.listen(process.env.PORT || 5000, async (error) => {

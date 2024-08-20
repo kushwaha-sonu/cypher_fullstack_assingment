@@ -64,9 +64,28 @@ export const createQuestion = async (req, res) => {
 
 export const getAllQuestions = async (req, res) => {
     try {
-        const questions = await Question.find().populate("addedBy","_id");
+        const { category } = req.query;
+        const query = category ? { category } : {};
+        const questions = await Question.find(query).populate("addedBy", "_id");
         res.status(200).json({
-        questions,
+            questions,
+            success: true,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Something went wrong",
+            success: false,
+            error: error.message,
+        });
+    }
+}
+
+
+export const getAllCategories = async (req, res) => {
+    try {
+        const categories = await Question.distinct("category");
+        res.status(200).json({
+        categories,
         success: true,
         });
     } catch (error) {

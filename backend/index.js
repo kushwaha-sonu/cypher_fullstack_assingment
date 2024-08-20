@@ -19,7 +19,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://cypher-assingment-ty84-20yz1utns-sonu-kumars-projects-beca3941.vercel.app",
+    origin: "https://cypher-fullstack-assingment-8lcjja1zs.vercel.app",
     credentials: true,
   })
 );

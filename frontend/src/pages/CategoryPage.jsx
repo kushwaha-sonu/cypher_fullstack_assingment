@@ -14,7 +14,7 @@ const CategoryPage = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    withCredentials: true,
+
                 });
                 setCategories(response.data.categories);
             } catch (error) {
